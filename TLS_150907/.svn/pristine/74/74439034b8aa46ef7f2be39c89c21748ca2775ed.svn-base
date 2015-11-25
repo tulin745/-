@@ -1,0 +1,29 @@
+//
+//  BaseViewController.h
+//  ECTECTIphone
+//
+//  Created by mac on 15/5/19.
+//
+//
+
+#import <UIKit/UIKit.h>
+
+
+@interface BaseViewController : UIViewController
+
+-(void)backPage;
+
+-(void)dissPage;
+
+-(void)rightBtnAction;
+
+- (void)setLelftNavigationItem:(BOOL)hidden;
+
+- (void)setMenuLeftItem;
+
+- (void)setShopRightItem;
+
+- (void)rightButton:(UIButton*)button;
+
+
+@end

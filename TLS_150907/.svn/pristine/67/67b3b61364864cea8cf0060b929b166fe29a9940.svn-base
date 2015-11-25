@@ -1,0 +1,21 @@
+//
+//  Knowledgebase.h
+//
+//  Created by 淋 屠 on 15/8/20
+//  Copyright (c) 2015 __MyCompanyName__. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+
+
+@interface Knowledgebase : NSObject <NSCoding, NSCopying>
+
+@property (nonatomic, strong) NSArray *general;
+@property (nonatomic, strong) NSArray *iPSystem;
+
++ (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
+- (instancetype)initWithDictionary:(NSDictionary *)dict;
+- (NSDictionary *)dictionaryRepresentation;
+
+@end

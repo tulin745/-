@@ -1,0 +1,177 @@
+//
+//  InformationViewController.m
+//  TLS
+//
+//  Created by newtouch on 15/8/16.
+//  Copyright (c) 2015年 tulin. All rights reserved.
+//
+
+#import "InformationViewController.h"
+#import "informationTableViewCell.h"
+#import "InfomationTextFTableViewCell.h"
+@interface InformationViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>{
+    NSString *cellName;
+    NSString *textCellName;
+    
+    NSInteger tagTextF;
+    NSString *cuText;
+}
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray * dataAry;
+@end
+
+@implementation InformationViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    [self loaddata];
+    textCellName = NSStringFromClass([InfomationTextFTableViewCell class]);
+    cellName = NSStringFromClass([informationTableViewCell class]);
+    
+    [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([informationTableViewCell class]) bundle:nil] forCellReuseIdentifier:cellName];
+    [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([InfomationTextFTableViewCell class]) bundle:nil] forCellReuseIdentifier:textCellName];
+    
+    self.navigationItem.title = @"Account Information";
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self getInformation];
+    
+}
+
+- (void)loaddata{
+    _dataAry = [NSMutableArray array];
+    
+    NSDictionary *fName = [[NSDictionary alloc]initWithObjectsAndKeys:@"First Name",@"title",@"Li",@"value", nil];
+    NSDictionary *lName = [[NSDictionary alloc]initWithObjectsAndKeys:@"Last Name",@"title",@"joelean",@"value", nil];
+    NSDictionary *email = [[NSDictionary alloc]initWithObjectsAndKeys:@"Email",@"title",@"584189088@qq.com",@"value", nil];
+    NSArray *ary1 = @[fName,lName,email];
+    NSDictionary *account = [ [NSDictionary alloc]initWithObjectsAndKeys:@"Account Information",@"title",ary1,@"data", nil];
+    
+    NSDictionary *cName = [[NSDictionary alloc]initWithObjectsAndKeys:@"Company Name",@"title",@"",@"value", nil];
+    NSDictionary *phoneNum = [[NSDictionary alloc]initWithObjectsAndKeys:@"Phone Number",@"title",@"",@"value", nil];
+    NSDictionary *faxNum = [[NSDictionary alloc]initWithObjectsAndKeys:@"Fax Number",@"title",@"",@"value", nil];
+    NSDictionary *address = [[NSDictionary alloc]initWithObjectsAndKeys:@"Address",@"title",@"",@"value", nil];
+    NSDictionary *address2 = [[NSDictionary alloc]initWithObjectsAndKeys:@"Address2",@"title",@"",@"value", nil];
+    NSDictionary *city = [[NSDictionary alloc]initWithObjectsAndKeys:@"City",@"title",@"",@"value", nil];
+    NSDictionary *state = [[NSDictionary alloc]initWithObjectsAndKeys:@"State",@"title",@"",@"value", nil];
+    NSDictionary *country = [[NSDictionary alloc]initWithObjectsAndKeys:@"Country",@"title",@"",@"value", nil];
+    NSDictionary *zipcode = [[NSDictionary alloc]initWithObjectsAndKeys:@"Zipcode",@"title",@"",@"value", nil];
+    NSDictionary *federalTaxID = [[NSDictionary alloc]initWithObjectsAndKeys:@"Federal Tax ID",@"title",@"",@"value", nil];
+    NSDictionary *salesRepresentative = [[NSDictionary alloc]initWithObjectsAndKeys:@"Sales Representative",@"title",@"",@"value", nil];
+    NSDictionary *office = [[NSDictionary alloc]initWithObjectsAndKeys:@"Office",@"title",@"",@"value", nil];
+    
+    NSArray *ary2 = @[cName,phoneNum,faxNum,address,address2,city,state,country,zipcode,federalTaxID,salesRepresentative,office];
+    NSDictionary *company = [ [NSDictionary alloc]initWithObjectsAndKeys:@"Company Information",@"title",ary2,@"data", nil];
+    if ([self.informationType isEqualToString:@"Account"]) {
+        [_dataAry addObject:account];
+    }else{
+        [_dataAry addObject:company];
+    }
+    
+    
+}
+
+#pragma mark -  UITableViewDataSource,UITableViewDelegate
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return [_dataAry count];
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSDictionary *dic = _dataAry[section];
+    NSArray * ary = [dic objectForKey:@"data"];
+    return [ary count];
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSDictionary *dic = _dataAry[indexPath.section];
+    NSArray *ary = [dic objectForKey:@"data"];
+    NSDictionary *diec = ary[indexPath.row];
+ 
+    if ([self.informationType isEqualToString:@"Account"]) {
+        informationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellName forIndexPath:indexPath];
+        cell.titleStr.text = [diec objectForKey:@"title"];
+        cell.valueStr.text = [diec objectForKey:@"value"];
+        cell.valueStr.userInteractionEnabled = NO;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }else{
+        InfomationTextFTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:textCellName];
+        cell.textFeilld.delegate = self;
+        cell.textFeilld.text = [diec objectForKey:@"title"];
+        cell.textFeilld.tag = indexPath.row;
+        return cell;
+    }
+    
+   
+}
+
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    NSDictionary *dic = _dataAry[section];
+    
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
+    view.backgroundColor = UIColorFromRGB(0xe9e9e9);
+
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, SCREEN_WIDTH, 40)];
+    label.font = [UIFont systemFontOfSize:16];
+    label.text = [dic objectForKey:@"title"];
+
+    [view addSubview:label];
+    
+    return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+   
+    return 40;
+
+}
+
+#pragma mark - UITextFiledDelegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    
+    cuText = textField.text;
+    textField.text = @"";
+    
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    
+    if ([textField.text length] == 0) {
+        textField.text = cuText;
+    }
+
+}
+
+//mobile.ltsecurityinc.com/api3/customers/info?id=8127
+
+- (void)getInformation{
+    
+    NSDictionary *dic = @{@"customerid":mAvailableString([HomeShareInfo sharedHomeInfoModel].userInfo.customerid)};
+    
+    [self.view showProgressHUDWithInfo:alert_Loading];
+    [Networking GetAFNRequestWithParameters:dic andHttpType:@"customers" action:@"info" withSuccessBlock:^(id dicResult) {
+        NSLog(@"请求成功:%@",dicResult);
+        [self.view hiddenProgressHUD];
+        
+    } withErrorBlock:^(id dicResult, NSString *error) {
+        [self.view hiddenProgressHUD];
+        NSLog(@"请求失败:%@",dicResult);
+        [self.view alertViewShowWithMessage:dicResult[@"message"] View:self.navigationController.view];
+    }];
+
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+
+@end

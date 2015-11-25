@@ -1,0 +1,147 @@
+//
+//  Networking.m
+//  TLS
+//
+//  Created by 屠淋 on 15/8/18.
+//  Copyright (c) 2015年 tulin. All rights reserved.
+//
+
+#import "Networking.h"
+
+@implementation Networking
+
+//get请求
++(void)getRequestWithHTTPName:(NSString*)httpName withSuccessBlock:(requestSuccessBlock)block withErrorBlock:(requestErrorBlock)errorBlock{
+    
+    NSString *urlString = [NET_URL stringByAppendingPathComponent:httpName];
+    
+    NSURL *url = [[NSURL alloc]initWithString:urlString];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url];
+    
+    [request setHTTPMethod:@"GET"];
+    [request setTimeoutInterval:30];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        
+        if (data) {
+
+            id object = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+
+            if (object) {
+                
+                block(object);
+                
+            }
+            
+        }else{
+            
+            errorBlock(@{@"message":connectionError.userInfo[@"NSLocalizedDescription"]},@"Network connection failure");
+            
+        }
+        
+    }];
+    
+}
+
+
++ (void)GetAFNRequestWithParameters:(NSDictionary*)dic andHttpType:(NSString*)type action:(NSString*)action withSuccessBlock:(requestSuccessBlock)block withErrorBlock:(requestErrorBlock)errorBlock{
+    
+    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+    mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
+    NSString *url = [NSString stringWithFormat:@"%@%@/%@",Base_Url,type,action];
+    
+    NSLog(@"\n---------requestURL:%@%@",url,dic);
+    [mgr GET:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        id dic = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
+        
+        if ([dic count] != 0) {
+            
+            if ([dic isKindOfClass:[NSDictionary class]]) {
+                
+                if ([[dic objectForKey:@"state"] isEqualToString:@"1"]) {
+                    block(dic);
+                }else{
+                    errorBlock(dic,@"Network connection failure");
+                }
+                
+            }else{
+                
+                block(dic);
+
+            }
+            
+        
+        }else{
+        errorBlock(@{@"message":@"The network connection was a problem , please try again later."},@"Network connection failure");
+    }
+     
+     
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        errorBlock(@{@"message":error.userInfo[@"NSLocalizedDescription"]},@"Network connection failure");
+
+        
+    }];
+
+
+}
+
++ (void)GetOrdersRequestWithParameters:(NSDictionary*)dic andHttpType:(NSString*)type action:(NSString*)action withSuccessBlock:(requestSuccessBlock)block withErrorBlock:(requestErrorBlock)errorBlock{
+    
+    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+    mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
+    NSString *url = [NSString stringWithFormat:@"%@%@/%@",Base_Url,type,action];
+    
+    [mgr GET:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
+        if ([dic count] != 0) {
+            block(dic);
+        }else{
+            errorBlock(@{@"message":@"The network connection was a problem , please try again later."},@"Network connection failure");
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        errorBlock(error.userInfo,@"Network connection failure");
+        
+        
+    }];
+    
+    
+}
+
+//下载文件接口
++ (void)downFileWithUrl:(NSString*)url andFileName:(NSString*)fileName andBlock:(void (^)(BOOL isSuccess, NSError *error))block
+{
+    
+    NSURL *requestUrl = [NSURL URLWithString:url];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestUrl];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *docDir = [paths objectAtIndex:0];
+    NSString *filePath = [docDir stringByAppendingPathComponent:fileName];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    operation.inputStream   = [NSInputStream inputStreamWithURL:requestUrl];
+    operation.outputStream  = [NSOutputStream outputStreamToFileAtPath:filePath append:NO];
+    
+    NSLog(@"保存路径:%@",filePath);
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+        block(YES, nil);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        block(NO, error);
+        
+    }];
+    
+    [operation start];
+}
+
+
+
+@end

@@ -1,0 +1,138 @@
+//
+//  SetingViewController.m
+//  TLS
+//
+//  Created by newtouch on 15/9/3.
+//  Copyright (c) 2015年 tulin. All rights reserved.
+//
+
+#import "SetingViewController.h"
+#import "SettingTableViewCell.h"
+#import "InformationViewController.h"
+#import "ModifyPasswordViewController.h"
+#import "WelcomeViewController.h"
+#import "LoginViewController.h"
+#import "AppDelegate.h"
+
+@interface SetingViewController ()<UITableViewDataSource,UITableViewDelegate>
+
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *dataAry;
+
+@end
+
+@implementation SetingViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    [self loadData];
+    
+    
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    _tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    self.navigationItem.title = @"Setting";
+}
+
+- (void)loadData{
+    _dataAry = [NSMutableArray array];
+    NSMutableDictionary *information = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"Account Information",@"title", nil];
+    NSArray *ary1 = @[information];
+    
+    NSMutableDictionary *modify = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"Modify Password",@"title", nil];
+    NSArray *ary2 = @[modify];
+    
+    NSMutableDictionary *exit = [[NSMutableDictionary alloc]initWithObjectsAndKeys:@"Log Out",@"title", nil];
+    NSArray *ary3 = @[exit];
+    
+    [_dataAry addObject:ary1];
+    [_dataAry addObject:ary2];
+    [_dataAry addObject:ary3];
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return _dataAry.count;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return [_dataAry[section] count];
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSArray *cellAry = [[NSBundle mainBundle]loadNibNamed:@"SettingTableViewCell" owner:nil options:nil];
+    SettingTableViewCell *cell;
+    NSArray *ary = _dataAry[indexPath.section];
+    NSDictionary *dic = ary[indexPath.row];
+    if (!cell) {
+        if (indexPath.section == 2) {
+            cell = cellAry[1];
+            cell.titleCenterStr.text = [dic objectForKey:@"title"];
+        }else{
+            cell = cellAry[0];
+            cell.titleStr.text = [dic objectForKey:@"title"];
+        }
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 10;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {
+        InformationViewController *informationVC = [[InformationViewController alloc]init];
+        informationVC.informationType = @"Account";
+        [self.navigationController pushViewController:informationVC animated:YES];
+    }else if (indexPath.section == 1){
+        ModifyPasswordViewController *modifyPasswordVC = [[ModifyPasswordViewController alloc]init];
+        [self.navigationController pushViewController:modifyPasswordVC animated:YES];
+    }else if (indexPath.section == 2){
+//
+        
+        //退出登录
+
+        NSDictionary *dic = [[JXUserDefault objectValueForKey:UserDefault_userInfo][@"data"] firstObject];
+        [dic setValue:@"" forKey:@"entity_id"];
+        [JXUserDefault setObjectValue:dic forKey:UserDefault_userInfo];
+        self.tabBarController.selectedIndex = 0;
+//
+//        [self.view showProgressHUDWithInfo:@"Exit waiting..."];
+//        LoginViewController *loginVC = [[LoginViewController alloc]initWithNibName:@"LoginViewController" bundle:nil];
+//        
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            // 刷新表格
+//            [self.view hiddenProgressHUD];
+//            loginVC.fromPlace = @"Logout";
+//            [self.navigationController pushViewController:loginVC animated:YES];
+//            
+////            [self presentViewController:loginVC animated:YES completion:^{
+//            
+////            }];
+//        });
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    }
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

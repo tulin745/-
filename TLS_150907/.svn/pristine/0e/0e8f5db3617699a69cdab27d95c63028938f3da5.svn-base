@@ -1,0 +1,102 @@
+//
+//  IPSystem.m
+//
+//  Created by 淋 屠 on 15/8/20
+//  Copyright (c) 2015 __MyCompanyName__. All rights reserved.
+//
+
+#import "IPSystem.h"
+
+
+NSString *const kIPSystemId = @"id";
+NSString *const kIPSystemName = @"name";
+
+
+@interface IPSystem ()
+
+- (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict;
+
+@end
+
+@implementation IPSystem
+
+@synthesize iPSystemIdentifier = _iPSystemIdentifier;
+@synthesize name = _name;
+
+
++ (instancetype)modelObjectWithDictionary:(NSDictionary *)dict
+{
+    return [[self alloc] initWithDictionary:dict];
+}
+
+- (instancetype)initWithDictionary:(NSDictionary *)dict
+{
+    self = [super init];
+    
+    // This check serves to make sure that a non-NSDictionary object
+    // passed into the model class doesn't break the parsing.
+    if(self && [dict isKindOfClass:[NSDictionary class]]) {
+            self.iPSystemIdentifier = [self objectOrNilForKey:kIPSystemId fromDictionary:dict];
+            self.name = [self objectOrNilForKey:kIPSystemName fromDictionary:dict];
+
+    }
+    
+    return self;
+    
+}
+
+- (NSDictionary *)dictionaryRepresentation
+{
+    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
+    [mutableDict setValue:self.iPSystemIdentifier forKey:kIPSystemId];
+    [mutableDict setValue:self.name forKey:kIPSystemName];
+
+    return [NSDictionary dictionaryWithDictionary:mutableDict];
+}
+
+- (NSString *)description 
+{
+    return [NSString stringWithFormat:@"%@", [self dictionaryRepresentation]];
+}
+
+#pragma mark - Helper Method
+- (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict
+{
+    id object = [dict objectForKey:aKey];
+    return [object isEqual:[NSNull null]] ? nil : object;
+}
+
+
+#pragma mark - NSCoding Methods
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+
+    self.iPSystemIdentifier = [aDecoder decodeObjectForKey:kIPSystemId];
+    self.name = [aDecoder decodeObjectForKey:kIPSystemName];
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+
+    [aCoder encodeObject:_iPSystemIdentifier forKey:kIPSystemId];
+    [aCoder encodeObject:_name forKey:kIPSystemName];
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    IPSystem *copy = [[IPSystem alloc] init];
+    
+    if (copy) {
+
+        copy.iPSystemIdentifier = [self.iPSystemIdentifier copyWithZone:zone];
+        copy.name = [self.name copyWithZone:zone];
+    }
+    
+    return copy;
+}
+
+
+@end

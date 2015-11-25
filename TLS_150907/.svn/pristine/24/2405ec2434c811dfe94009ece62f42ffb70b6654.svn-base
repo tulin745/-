@@ -1,0 +1,65 @@
+//
+//  MyCartTableViewCell.m
+//  TLS
+//
+//  Created by 屠淋 on 15/8/22.
+//  Copyright (c) 2015年 tulin. All rights reserved.
+//
+
+#import "MyCartTableViewCell.h"
+
+@implementation MyCartTableViewCell
+
+- (void)awakeFromNib {
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+- (IBAction)selectButtonAction:(UIButton *)sender {
+    
+    sender.selected = !sender.selected;
+}
+
+- (IBAction)bashAction:(UIButton *)sender {
+    
+    int number = [self.numberLabel.text intValue];
+    if (number > 1) {
+        self.numberLabel.text = [NSString stringWithFormat:@"%d",--number];
+    }
+}
+
+- (IBAction)plusAction:(UIButton *)sender {
+    
+    int number = [self.numberLabel.text intValue];
+    if (number < 100) {
+        self.numberLabel.text = [NSString stringWithFormat:@"%d",++number];
+    }
+
+}
+
+- (void)getContentWithDic:(NSDictionary *)dic{
+    
+    self.numberLabel.text = dic[@"product_qty"];
+    self.nameLabel.text = dic[@"product_name"];
+    NSString *moneyNum = [self numberFormatterWithNumber:dic[@"product_price"]];
+    self.moneyLabel.text = [NSString stringWithFormat:@"$ %@",moneyNum];
+    
+
+}
+
+- (NSString *)numberFormatterWithNumber:(NSString *)number
+{
+    CGFloat num = [number doubleValue];
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [formatter setPositiveFormat:@"###,##0.00;"];
+    NSString *formattedNumberString = [formatter stringFromNumber:[NSNumber numberWithDouble:num]];
+    
+    return formattedNumberString;
+}
+
+@end

@@ -1,0 +1,277 @@
+//
+//  CatelogViewController.m
+//  TLS
+//
+//  Created by 屠淋 on 15/8/8.
+//  Copyright (c) 2015年 tulin. All rights reserved.
+//
+
+#import "CatelogViewController.h"
+#import "NewMenuViewController.h"
+#import "SearchResultViewController.h"
+#import "OpenFileViewController.h"
+
+@interface CatelogViewController ()<RCNetworkSpyDelegate,NewMenuViewControllerDelegate,UIAlertViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UILabel *firstLabel;
+@property (weak, nonatomic) IBOutlet UILabel *secondLabel;
+@property (weak, nonatomic) IBOutlet UIButton *downLoadBtn;
+
+//@property (weak, nonatomic) IBOutlet UIButton *button;
+@property (weak, nonatomic) IBOutlet UILabel *label;
+
+@property (nonatomic, strong) NewMenuViewController *menuViewController;
+
+@property (nonatomic, strong) NSMutableDictionary *catelogDic;
+
+
+
+@end
+
+@implementation CatelogViewController
+
+- (NewMenuViewController*)menuViewController{
+    
+    if (!_menuViewController ) {
+        _menuViewController = [[NewMenuViewController alloc]init];
+        _menuViewController.view.frame = CGRectMake(-SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        _menuViewController.delegate = self;
+        
+        
+        NSArray *windows = [UIApplication sharedApplication].windows;
+        for (UIWindow *WD in windows) {
+            if (WD != nil) {
+                
+                [WD addSubview:self.menuViewController.view];
+            }
+        }
+    }
+    return _menuViewController;
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    [self judgment];
+}
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.title = @"Catelog";
+    
+    self.downLoadBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
+    self.downLoadBtn.layer.cornerRadius = 6;
+    
+    [self setMenuLeftItem];
+    [self setShopRightItem];
+    
+    [self getCatelogFile];
+    
+    [[ECTNetworkSpy sharedNetworkSpy] spyNetwork];
+    [ECTNetworkSpy sharedNetworkSpy].spyDelegate = self;
+    
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+- (void)didNetworkChangedReachable:(BOOL)reachable viaWifi:(BOOL)viaWifi
+{
+    NSString* title = @"网络在开小差，检查后再试吧";
+    
+    if (!reachable) {
+        title = @"网络在开小差，检查后再试吧";
+    }
+    else if (viaWifi) {
+        title = @"当前wifi已连接";
+    }
+    else {
+        title = @"当前2g/3g已连接";
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Advice" message:@"The file size may be  large\nWhether or not to continue " delegate:self cancelButtonTitle:@"cancel" otherButtonTitles:@"continue", nil];
+        [alertView show];
+    }
+
+    
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (buttonIndex == 1) {
+        
+        
+    }
+
+}
+
+- (void)openFile{
+    
+    if ([[HomeShareInfo sharedHomeInfoModel] isThroughAudit]) {
+
+        [self downloadFileWithURL:self.catelogDic[@"url2"] andFileName:@"Verson2-PDF.pdf"];
+        
+    }else{
+        
+        [self downloadFileWithURL:self.catelogDic[@"url1"] andFileName:@"Verson1-PDF.pdf"];
+    
+    }
+
+}
+
+#pragma mark - MenuViewControllerDelegate
+
+- (void)menuVC:(NewMenuViewController *)vc andInfo:(CategorieInfo *)info{
+    
+    [vc hidden];
+    
+    SearchResultViewController *searchVC = [[SearchResultViewController alloc]initWithNibName:@"SearchResultViewController" bundle:nil];
+    searchVC.title = info.name;
+    searchVC.ID = info.entity_id;
+
+    [self.navigationController pushViewController:searchVC animated:YES];
+    
+}
+- (IBAction)download:(UIButton*)sender {
+    
+    if ([sender.titleLabel.text isEqualToString:@"DOWNLOAD NOW"]) {
+        
+        [self openFile];
+        
+    }else{
+        
+        OpenFileViewController *openFile = [[OpenFileViewController alloc]init];
+        
+        openFile.title = @"Catelog";
+        
+        if ([[HomeShareInfo sharedHomeInfoModel] isThroughAudit]) {
+            
+            openFile.filePath = [SavePathUtil getVersonTwoPDFPath];
+            
+        }else{
+            
+            openFile.filePath = [SavePathUtil getVersonOnePDFPath];
+            
+        }
+        
+        if ([self isExistsFile:openFile.filePath]) {
+            
+            [self.navigationController pushViewController:openFile animated:YES];
+            
+        }else{
+            
+            [self.view alertViewShowWithMessage:@"The file does not exist, please download" View:self.navigationController.view];
+        }
+    }
+}
+
+#pragma mark - 展开 / 隐藏  菜单
+
+- (void)showMenu{
+    
+    [self.menuViewController show];
+    [self.view endEditing:YES];
+}
+
+
+#pragma mark - 下载文件
+
+- (void)downloadFileWithURL:(NSString*)url andFileName:(NSString*)fileName{
+    
+//    if ([url rangeOfString:@"www"].location != NSNotFound) {
+//        NSRange rang = [url rangeOfString:@"www"];
+//        url =  [url stringByReplacingCharactersInRange:rang withString:@"mobile"];
+//    }
+    url = mAvailableString(url);
+    [self.view showProgressHUDWithInfo:alert_Loading];
+    [Networking downFileWithUrl:url andFileName:fileName andBlock:^(BOOL isSuccess, NSError *error) {
+        
+        [self.view hiddenProgressHUD];
+        
+        if (isSuccess) {
+            NSLog(@"下载完成");
+            [self.downLoadBtn setTitle:@"OPEN FILE" forState:UIControlStateNormal];
+            [self.downLoadBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        }else{
+            NSLog(@"下载失败");
+            [self.view alertViewShowWithMessage:error.userInfo[@""] View:self.navigationController.view];
+        }
+    }];
+    
+}
+
+#pragma mark - request
+
+- (void)getCatelogFile{
+    
+    [self.view showProgressHUDWithInfo:alert_Loading];
+    [Networking getRequestWithHTTPName:@"catelog" withSuccessBlock:^(id dicResult) {
+        NSLog(@"request success:%@",dicResult);
+        [self.view hiddenProgressHUD];
+        NSDictionary *dic = [JXUserDefault objectValueForKey:@"Catelog_PDF"];
+        
+        if (![[HomeShareInfo sharedHomeInfoModel] isThroughAudit]) {
+            self.label.text = dicResult[@"version1"];
+            if (![dic[@"version1"] isEqualToString:self.label.text]) {
+                [self.downLoadBtn setTitle:@"DOWNLOAD NOW" forState:UIControlStateNormal];
+                [self.downLoadBtn setImage:[UIImage imageNamed:@"down"] forState:UIControlStateNormal];
+            }
+        }else{
+            self.label.text = dicResult[@"version2"];
+            if (![dic[@"version2"] isEqualToString:self.label.text]) {
+                [self.downLoadBtn setTitle:@"DOWNLOAD NOW" forState:UIControlStateNormal];
+                [self.downLoadBtn setImage:[UIImage imageNamed:@"down"] forState:UIControlStateNormal];
+            }
+        }
+        self.catelogDic = dicResult;
+        
+        [JXUserDefault setObjectValue:dicResult forKey:@"Catelog_PDF"];
+
+    } withErrorBlock:^(id dicResult, NSString *error) {
+        NSLog(@"请求失败: %@",dicResult);
+        [self.view alertViewShowWithMessage:dicResult[@"message"] View:self.navigationController.view];
+        [self.view hiddenProgressHUD];
+
+    }];
+}
+
+- (BOOL)isExistsFile:(NSString*)filePath{//检测文件是否存在
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if ([fileManager fileExistsAtPath:filePath]) {
+        return YES;
+    }
+    return NO;
+}
+
+
+- (void)judgment{
+    
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *docDir = [paths objectAtIndex:0];
+    
+    NSString *fileName = @"";
+    if ([[HomeShareInfo sharedHomeInfoModel] isThroughAudit]) {
+        fileName = @"Verson2-PDF.pdf";
+    }else{
+        fileName = @"Verson1-PDF.pdf";
+    }
+    NSString *filePath = [docDir stringByAppendingPathComponent:fileName];
+    
+    if ([self isExistsFile:filePath]){
+        
+        [self.downLoadBtn setTitle:@"OPEN FILE" forState:UIControlStateNormal];
+        [self.downLoadBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        
+    }else{
+        
+        [self.downLoadBtn setTitle:@"DOWNLOAD NOW" forState:UIControlStateNormal];
+        [self.downLoadBtn setImage:[UIImage imageNamed:@"down"] forState:UIControlStateNormal];
+    }
+    
+}
+
+@end

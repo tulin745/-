@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>DDB95F58-4A66-4FDB-85C5-B604E4A81378</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TLS</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>004190dc-f562-48b8-aa67-97354b95ee70++2374</key>
+		<string>https://www.svnchina.com/svn/tls/TLS</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+<<<<<<< .mine
+<<<<<<< .mine
+	<string>TLS.xcodeproj</string>
+=======
+	<string>TLS.xcodeproj/project.xcworkspace</string>
+=======
+	<string>TLS.xcodeproj</string>
+>>>>>>> .r4
+>>>>>>> .r3
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>004190dc-f562-48b8-aa67-97354b95ee70++2374</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>004190dc-f562-48b8-aa67-97354b95ee70++2374</key>
+		<string>https://www.svnchina.com/svn/tls</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+<<<<<<< .mine
+<<<<<<< .mine
+	<string>https://www.svnchina.com/svn/tls/TLS/TLS.xcodeproj</string>
+=======
+	<string>https://www.svnchina.com/svn/tls/TLS/TLS.xcodeproj/project.xcworkspace</string>
+=======
+	<string>https://www.svnchina.com/svn/tls/TLS/TLS.xcodeproj</string>
+>>>>>>> .r4
+>>>>>>> .r3
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>004190dc-f562-48b8-aa67-97354b95ee70++2374</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>004190dc-f562-48b8-aa67-97354b95ee70++2374</string>
+			<key>IDESourceControlWCCName</key>
+			<string>TLS_150815</string>
+		</dict>
+	</array>
+</dict>
+</plist>

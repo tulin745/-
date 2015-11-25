@@ -1,0 +1,38 @@
+//
+//  HomeShareInfo.m
+//  TLS
+//
+//  Created by 屠淋 on 15/8/19.
+//  Copyright (c) 2015年 tulin. All rights reserved.
+//
+
+#import "HomeShareInfo.h"
+#import "MJExtension.h"
+
+@implementation HomeShareInfo
+
+static HomeShareInfo *homeShareInfo = nil;
+
+ + (HomeShareInfo *)sharedHomeInfoModel{
+    
+     if( homeShareInfo == nil )
+     {
+         homeShareInfo = [ [ HomeShareInfo alloc ] init ];
+         homeShareInfo.menuArray = [NSMutableArray array];
+
+     }
+     return homeShareInfo;
+}
+
+- (BOOL)isThroughAudit{
+    
+    NSDictionary *dic = [[JXUserDefault objectValueForKey:UserDefault_userInfo][@"data"] firstObject];
+
+    if ([[dic objectForKey:@"customer_group"] isEqualToString:@"2"]) {
+        return YES;
+    }else{
+        return NO;
+    }
+}
+
+@end

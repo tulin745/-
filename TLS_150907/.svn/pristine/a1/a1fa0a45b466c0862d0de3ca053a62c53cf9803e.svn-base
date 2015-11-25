@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="SearchResultTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="116"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="115.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vrk-N1-s8x">
+                        <rect key="frame" x="12" y="23" width="68" height="68"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="68" id="ZhU-JO-JHq"/>
+                            <constraint firstAttribute="height" constant="68" id="tBV-Dc-D4M"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Platinum Fixed lens Dome Cam" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n7z-xO-bmZ">
+                        <rect key="frame" x="86" y="19" width="223.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Model:LTN0732-80" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zwa-v1-lSR">
+                        <rect key="frame" x="86" y="45.5" width="102.5" height="13.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" red="0.39215686274509803" green="0.39215686274509803" blue="0.39215686274509803" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In stock" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cu3-bi-4Jv">
+                        <rect key="frame" x="86" y="59" width="44.5" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 80.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lOT-EN-r0I">
+                        <rect key="frame" x="86" y="73.5" width="47.5" height="18"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                        <color key="textColor" red="0.85882352941176465" green="0.0" blue="0.054901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="lOT-EN-r0I" firstAttribute="top" secondItem="cu3-bi-4Jv" secondAttribute="bottom" id="1qw-cv-jNr"/>
+                    <constraint firstItem="Vrk-N1-s8x" firstAttribute="centerY" secondItem="n7z-xO-bmZ" secondAttribute="centerY" constant="29.5" id="2fH-QI-zFQ"/>
+                    <constraint firstItem="n7z-xO-bmZ" firstAttribute="leading" secondItem="Vrk-N1-s8x" secondAttribute="trailing" constant="6.5" id="37K-gg-vtx"/>
+                    <constraint firstItem="cu3-bi-4Jv" firstAttribute="top" secondItem="Zwa-v1-lSR" secondAttribute="bottom" id="6Nw-mQ-xGO"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="n7z-xO-bmZ" secondAttribute="trailing" constant="2" id="9sc-tg-9Mr"/>
+                    <constraint firstAttribute="centerY" secondItem="Vrk-N1-s8x" secondAttribute="centerY" id="EwR-MD-zaG"/>
+                    <constraint firstItem="lOT-EN-r0I" firstAttribute="leading" secondItem="Vrk-N1-s8x" secondAttribute="trailing" constant="6" id="JnU-eJ-OtN"/>
+                    <constraint firstItem="cu3-bi-4Jv" firstAttribute="leading" secondItem="Vrk-N1-s8x" secondAttribute="trailing" constant="6" id="NTc-0F-scO"/>
+                    <constraint firstItem="lOT-EN-r0I" firstAttribute="top" secondItem="cu3-bi-4Jv" secondAttribute="bottom" constant="1.5" id="Pmb-Ew-kwZ"/>
+                    <constraint firstItem="Vrk-N1-s8x" firstAttribute="centerY" secondItem="Zwa-v1-lSR" secondAttribute="centerY" constant="5" id="gqp-tn-yL8"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="cu3-bi-4Jv" secondAttribute="bottom" constant="20" id="gz3-1z-SD5"/>
+                    <constraint firstItem="Vrk-N1-s8x" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="4" id="jhs-3K-B95"/>
+                    <constraint firstItem="Zwa-v1-lSR" firstAttribute="leading" secondItem="Vrk-N1-s8x" secondAttribute="trailing" constant="6" id="lZl-Cv-Dvc"/>
+                    <constraint firstItem="Zwa-v1-lSR" firstAttribute="top" secondItem="n7z-xO-bmZ" secondAttribute="bottom" constant="2" id="oFj-mJ-gcu"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="oFj-mJ-gcu"/>
+                        <exclude reference="gz3-1z-SD5"/>
+                        <exclude reference="Pmb-Ew-kwZ"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="ImageV" destination="Vrk-N1-s8x" id="4fU-dJ-MeK"/>
+                <outlet property="model" destination="Zwa-v1-lSR" id="LYA-Iy-Xku"/>
+                <outlet property="money" destination="lOT-EN-r0I" id="rRt-vW-u3B"/>
+                <outlet property="name" destination="n7z-xO-bmZ" id="Ae9-x0-cdM"/>
+                <outlet property="status" destination="cu3-bi-4Jv" id="1TS-By-REt"/>
+            </connections>
+            <point key="canvasLocation" x="-277" y="11"/>
+        </tableViewCell>
+    </objects>
+</document>

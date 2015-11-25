@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>contacts</key>
+	<array>
+		<dict>
+			<key>addr1</key>
+			<string>18738 San Jose Ave.</string>
+			<key>addr2</key>
+			<string>City of Industry, CA 91748</string>
+			<key>email</key>
+			<string>Support.LosAngeles@LTSecurityinc.com</string>
+			<key>fax</key>
+			<string>626-435-2801</string>
+			<key>hours</key>
+			<string>9am - 6pm (PST): MON - FRI</string>
+			<key>note</key>
+			<string>En LTS California hablamos espanol</string>
+			<key>office</key>
+			<string>California - Los Angeles</string>
+			<key>tel</key>
+			<string>626-435-2838</string>
+			<key>toll_free</key>
+			<string>888-587-5871</string>
+		</dict>
+		<dict>
+			<key>addr1</key>
+			<string>46791 Fremont Blvd.</string>
+			<key>addr2</key>
+			<string>City of Industry, CA 91748</string>
+			<key>email</key>
+			<string>Support.SanFrancisco@LTSecurityinc.com</string>
+			<key>fax</key>
+			<string>510-490-1526</string>
+			<key>hours</key>
+			<string>9am - 6pm (PST): MON - FRI</string>
+			<key>note</key>
+			<string></string>
+			<key>office</key>
+			<string>California - San Francisco</string>
+			<key>tel</key>
+			<string>510-201-9868</string>
+			<key>toll_free</key>
+			<string>888-216-2812</string>
+		</dict>
+	</array>
+	<key>images</key>
+	<dict>
+		<key>promotion_icon</key>
+		<string>http://lghttp.37881.nexcesscdn.net/80129A2/magento/media/catalog/product/cache/1/small_image/135x/9df78eab33525d08d6e5fb8d27136e95/5/7/574e080755e732c263c042499aca74a3.jpg</string>
+		<key>sliding</key>
+		<array>
+			<string>http://www.ltsecurityinc.com/ltax41t.htm</string>
+		</array>
+		<key>whats_new_icon</key>
+		<string>http://lghttp.37881.nexcesscdn.net/80129A2/magento/media/catalog/product/cache/1/small_image/135x/9df78eab33525d08d6e5fb8d27136e95/c/m/cmip3412_3432_600x600_1.jpg</string>
+	</dict>
+	<key>knowledgebase</key>
+	<array>
+		<dict>
+			<key>General</key>
+			<array>
+				<dict>
+					<key>id</key>
+					<string>1</string>
+					<key>name</key>
+					<string>Field of View Chart</string>
+				</dict>
+				<dict>
+					<key>id</key>
+					<string>2</string>
+					<key>name</key>
+					<string>What is CCTV stand for?</string>
+				</dict>
+				<dict>
+					<key>id</key>
+					<string>3</string>
+					<key>name</key>
+					<string>What is WDR?</string>
+				</dict>
+			</array>
+			<key>IP System</key>
+			<array>
+				<dict>
+					<key>id</key>
+					<string>1</string>
+					<key>name</key>
+					<string>What is Internet Bandwidth?</string>
+				</dict>
+				<dict>
+					<key>id</key>
+					<string>2</string>
+					<key>name</key>
+					<string>Power over Ethernet</string>
+				</dict>
+			</array>
+		</dict>
+	</array>
+	<key>name</key>
+	<string>Config</string>
+	<key>promotions</key>
+	<array>
+		<dict>
+			<key>image</key>
+			<string>http://www.ltsecurityinc.com/ip-camera/ip-bullet/cmip9723-s.html</string>
+			<key>model</key>
+			<string>CMIP9723-S</string>
+			<key>name</key>
+			<string>Platinum Varifocal Bullet Camera 2MP</string>
+			<key>price</key>
+			<string>$179</string>
+		</dict>
+		<dict>
+			<key>image</key>
+			<string>http://www.ltsecurityinc.com/ip-camera/ip-bullet/cmip9723-s.html</string>
+			<key>model</key>
+			<string>CMIP9723-S</string>
+			<key>name</key>
+			<string>Platinum Varifocal Bullet Camera 2MP</string>
+			<key>price</key>
+			<string>$179</string>
+		</dict>
+		<dict>
+			<key>image</key>
+			<string>http://www.ltsecurityinc.com/ip-camera/ip-bullet/cmip9723-s.html</string>
+			<key>model</key>
+			<string>CMIP9723-S</string>
+			<key>name</key>
+			<string>Platinum Varifocal Bullet Camera 2MP</string>
+			<key>price</key>
+			<string>$179</string>
+		</dict>
+		<dict>
+			<key>image</key>
+			<string>http://www.ltsecurityinc.com/ip-camera/ip-bullet/cmip9723-s.html</string>
+			<key>model</key>
+			<string>CMIP9723-S</string>
+			<key>name</key>
+			<string>Platinum Varifocal Bullet Camera 2MP</string>
+			<key>price</key>
+			<string>$179</string>
+		</dict>
+		<dict>
+			<key>image</key>
+			<string>http://www.ltsecurityinc.com/ip-camera/ip-bullet/cmip9723-s.html</string>
+			<key>model</key>
+			<string>CMIP9723-S</string>
+			<key>name</key>
+			<string>Platinum Varifocal Bullet Camera 2MP</string>
+			<key>price</key>
+			<string>$179</string>
+		</dict>
+	</array>
+	<key>version</key>
+	<string>1</string>
+	<key>video</key>
+	<array>
+		<dict>
+			<key>type</key>
+			<string>Latest Technology Videos</string>
+			<key>url</key>
+			<string>https://www.youtube.com/watch?v=R6lMSnWDi_4&amp;list=PLavMykS0nm2_pAd82KThC0w06B7a6PA8Y&amp;index=1</string>
+		</dict>
+		<dict>
+			<key>type</key>
+			<string>Latest Technology Videos</string>
+			<key>url</key>
+			<string>https://www.youtube.com/watch?v=3SGll7OdHdI&amp;list=PLavMykS0nm2_pAd82KThC0w06B7a6PA8Y&amp;index=2</string>
+		</dict>
+		<dict>
+			<key>type</key>
+			<string>Featured LTS Product Videos</string>
+			<key>url</key>
+			<string>https://www.youtube.com/watch?v=Uan6-fuHacU&amp;list=PLavMykS0nm2-ZHSpPhM8Ga_A32aD8aJyD&amp;index=1</string>
+		</dict>
+		<dict>
+			<key>type</key>
+			<string>Platinum Motorized IP Camera Series</string>
+			<key>url</key>
+			<string>https://www.youtube.com/watch?v=R4qHtVXJ_nk&amp;list=PLavMykS0nm2_aKdm76ipDl1gzAPkkX8DI&amp;index=2</string>
+		</dict>
+	</array>
+</dict>
+</plist>

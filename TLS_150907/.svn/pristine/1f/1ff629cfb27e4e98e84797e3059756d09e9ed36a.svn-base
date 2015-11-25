@@ -1,0 +1,106 @@
+//
+//  MyMessagesViewController.m
+//  TLS
+//
+//  Created by newtouch on 15/8/22.
+//  Copyright (c) 2015年 tulin. All rights reserved.
+//
+
+#import "MyMessagesViewController.h"
+#import "MyMessageTableViewCell.h"
+
+@interface MyMessagesViewController ()<UIAlertViewDelegate,UITableViewDataSource,UITableViewDelegate>
+
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UITextField *textFiled;
+
+@end
+
+@implementation MyMessagesViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTitle:@"Clear All" target:self action:@selector(clearAll)];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    
+}
+
+- (void)clearAll{
+    
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"notification" message:@"Sure you want to delete?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+    [alertView show];
+    
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        UIView *clearView = [[UIView alloc]init];
+        clearView.frame = _tableView.frame;
+        clearView.backgroundColor = [UIColor whiteColor];
+        [self.view addSubview:clearView];
+    }
+}
+- (IBAction)submitText:(UIButton *)sender {
+}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 2;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 2;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellIdentifier = @"MessageCell";
+    MyMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell) {
+        cell = [[MyMessageTableViewCell alloc]initWithReuseIdentifier:cellIdentifier];
+    }
+    
+    NSString *aqiValue;
+    UIColor *aqiColor;
+    if (indexPath.row == 0) {
+        cell.aqiImage.image = [UIImage imageWithName:@"admin"];
+        aqiValue = @"The data has been sent to your email 584189088@qq.com,please check. If you have any other questions,please contact the customer service staff.";
+        aqiColor = Color_RGB(0,0,0);
+        [cell setIntroductionText:aqiValue withColor:aqiColor];
+    }else{
+        cell.aqiImage.image = [UIImage imageWithName:@"custmor"];
+        aqiValue = @"I have review the device,Can you send the guide to me?";
+        aqiColor = Color_RGB(128,128,128);
+        [cell setIntroductionText:aqiValue withColor:aqiColor];
+        
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [self tableView:_tableView cellForRowAtIndexPath:indexPath];
+    return cell.frame.size.height;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 10;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

@@ -1,0 +1,148 @@
+//
+//  Knowledgebase.m
+//
+//  Created by 淋 屠 on 15/8/20
+//  Copyright (c) 2015 __MyCompanyName__. All rights reserved.
+//
+
+#import "Knowledgebase.h"
+#import "General.h"
+#import "IPSystem.h"
+
+
+NSString *const kKnowledgebaseGeneral = @"General";
+NSString *const kKnowledgebaseIPSystem = @"IP System";
+
+
+@interface Knowledgebase ()
+
+- (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict;
+
+@end
+
+@implementation Knowledgebase
+
+@synthesize general = _general;
+@synthesize iPSystem = _iPSystem;
+
+
++ (instancetype)modelObjectWithDictionary:(NSDictionary *)dict
+{
+    return [[self alloc] initWithDictionary:dict];
+}
+
+- (instancetype)initWithDictionary:(NSDictionary *)dict
+{
+    self = [super init];
+    
+    // This check serves to make sure that a non-NSDictionary object
+    // passed into the model class doesn't break the parsing.
+    if(self && [dict isKindOfClass:[NSDictionary class]]) {
+    NSObject *receivedGeneral = [dict objectForKey:kKnowledgebaseGeneral];
+    NSMutableArray *parsedGeneral = [NSMutableArray array];
+    if ([receivedGeneral isKindOfClass:[NSArray class]]) {
+        for (NSDictionary *item in (NSArray *)receivedGeneral) {
+            if ([item isKindOfClass:[NSDictionary class]]) {
+                [parsedGeneral addObject:[General modelObjectWithDictionary:item]];
+            }
+       }
+    } else if ([receivedGeneral isKindOfClass:[NSDictionary class]]) {
+       [parsedGeneral addObject:[General modelObjectWithDictionary:(NSDictionary *)receivedGeneral]];
+    }
+
+    self.general = [NSArray arrayWithArray:parsedGeneral];
+    NSObject *receivedIPSystem = [dict objectForKey:kKnowledgebaseIPSystem];
+    NSMutableArray *parsedIPSystem = [NSMutableArray array];
+    if ([receivedIPSystem isKindOfClass:[NSArray class]]) {
+        for (NSDictionary *item in (NSArray *)receivedIPSystem) {
+            if ([item isKindOfClass:[NSDictionary class]]) {
+                [parsedIPSystem addObject:[IPSystem modelObjectWithDictionary:item]];
+            }
+       }
+    } else if ([receivedIPSystem isKindOfClass:[NSDictionary class]]) {
+       [parsedIPSystem addObject:[IPSystem modelObjectWithDictionary:(NSDictionary *)receivedIPSystem]];
+    }
+
+    self.iPSystem = [NSArray arrayWithArray:parsedIPSystem];
+
+    }
+    
+    return self;
+    
+}
+
+- (NSDictionary *)dictionaryRepresentation
+{
+    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
+    NSMutableArray *tempArrayForGeneral = [NSMutableArray array];
+    for (NSObject *subArrayObject in self.general) {
+        if([subArrayObject respondsToSelector:@selector(dictionaryRepresentation)]) {
+            // This class is a model object
+            [tempArrayForGeneral addObject:[subArrayObject performSelector:@selector(dictionaryRepresentation)]];
+        } else {
+            // Generic object
+            [tempArrayForGeneral addObject:subArrayObject];
+        }
+    }
+    [mutableDict setValue:[NSArray arrayWithArray:tempArrayForGeneral] forKey:kKnowledgebaseGeneral];
+    NSMutableArray *tempArrayForIPSystem = [NSMutableArray array];
+    for (NSObject *subArrayObject in self.iPSystem) {
+        if([subArrayObject respondsToSelector:@selector(dictionaryRepresentation)]) {
+            // This class is a model object
+            [tempArrayForIPSystem addObject:[subArrayObject performSelector:@selector(dictionaryRepresentation)]];
+        } else {
+            // Generic object
+            [tempArrayForIPSystem addObject:subArrayObject];
+        }
+    }
+    [mutableDict setValue:[NSArray arrayWithArray:tempArrayForIPSystem] forKey:kKnowledgebaseIPSystem];
+
+    return [NSDictionary dictionaryWithDictionary:mutableDict];
+}
+
+- (NSString *)description 
+{
+    return [NSString stringWithFormat:@"%@", [self dictionaryRepresentation]];
+}
+
+#pragma mark - Helper Method
+- (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict
+{
+    id object = [dict objectForKey:aKey];
+    return [object isEqual:[NSNull null]] ? nil : object;
+}
+
+
+#pragma mark - NSCoding Methods
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+
+    self.general = [aDecoder decodeObjectForKey:kKnowledgebaseGeneral];
+    self.iPSystem = [aDecoder decodeObjectForKey:kKnowledgebaseIPSystem];
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+
+    [aCoder encodeObject:_general forKey:kKnowledgebaseGeneral];
+    [aCoder encodeObject:_iPSystem forKey:kKnowledgebaseIPSystem];
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    Knowledgebase *copy = [[Knowledgebase alloc] init];
+    
+    if (copy) {
+
+        copy.general = [self.general copyWithZone:zone];
+        copy.iPSystem = [self.iPSystem copyWithZone:zone];
+    }
+    
+    return copy;
+}
+
+
+@end

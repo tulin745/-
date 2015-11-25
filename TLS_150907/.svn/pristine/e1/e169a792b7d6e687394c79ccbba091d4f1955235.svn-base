@@ -1,0 +1,102 @@
+//
+//  General.m
+//
+//  Created by 淋 屠 on 15/8/20
+//  Copyright (c) 2015 __MyCompanyName__. All rights reserved.
+//
+
+#import "General.h"
+
+
+NSString *const kGeneralId = @"id";
+NSString *const kGeneralName = @"name";
+
+
+@interface General ()
+
+- (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict;
+
+@end
+
+@implementation General
+
+@synthesize generalIdentifier = _generalIdentifier;
+@synthesize name = _name;
+
+
++ (instancetype)modelObjectWithDictionary:(NSDictionary *)dict
+{
+    return [[self alloc] initWithDictionary:dict];
+}
+
+- (instancetype)initWithDictionary:(NSDictionary *)dict
+{
+    self = [super init];
+    
+    // This check serves to make sure that a non-NSDictionary object
+    // passed into the model class doesn't break the parsing.
+    if(self && [dict isKindOfClass:[NSDictionary class]]) {
+            self.generalIdentifier = [self objectOrNilForKey:kGeneralId fromDictionary:dict];
+            self.name = [self objectOrNilForKey:kGeneralName fromDictionary:dict];
+
+    }
+    
+    return self;
+    
+}
+
+- (NSDictionary *)dictionaryRepresentation
+{
+    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
+    [mutableDict setValue:self.generalIdentifier forKey:kGeneralId];
+    [mutableDict setValue:self.name forKey:kGeneralName];
+
+    return [NSDictionary dictionaryWithDictionary:mutableDict];
+}
+
+- (NSString *)description 
+{
+    return [NSString stringWithFormat:@"%@", [self dictionaryRepresentation]];
+}
+
+#pragma mark - Helper Method
+- (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict
+{
+    id object = [dict objectForKey:aKey];
+    return [object isEqual:[NSNull null]] ? nil : object;
+}
+
+
+#pragma mark - NSCoding Methods
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+
+    self.generalIdentifier = [aDecoder decodeObjectForKey:kGeneralId];
+    self.name = [aDecoder decodeObjectForKey:kGeneralName];
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+
+    [aCoder encodeObject:_generalIdentifier forKey:kGeneralId];
+    [aCoder encodeObject:_name forKey:kGeneralName];
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    General *copy = [[General alloc] init];
+    
+    if (copy) {
+
+        copy.generalIdentifier = [self.generalIdentifier copyWithZone:zone];
+        copy.name = [self.name copyWithZone:zone];
+    }
+    
+    return copy;
+}
+
+
+@end

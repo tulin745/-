@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CatelogViewController">
+            <connections>
+                <outlet property="button" destination="GfV-nr-FsW" id="NSX-ij-djs"/>
+                <outlet property="downLoadBtn" destination="GfV-nr-FsW" id="fbt-Rw-H21"/>
+                <outlet property="firstLabel" destination="CPJ-Dx-jar" id="h2I-7A-XHl"/>
+                <outlet property="label" destination="CPJ-Dx-jar" id="gLj-2j-laP"/>
+                <outlet property="secondLabel" destination="NUw-kz-6Wb" id="IbZ-bf-chB"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="nav-logo" translatesAutoresizingMaskIntoConstraints="NO" id="ejW-gO-iRk">
+                    <rect key="frame" x="103" y="169" width="114" height="23"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="23" id="na7-Y0-ftK"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPJ-Dx-jar">
+                    <rect key="frame" x="89" y="204" width="143" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2015-08-06 12:59:12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NUw-kz-6Wb">
+                    <rect key="frame" x="92" y="221" width="136" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GfV-nr-FsW">
+                    <rect key="frame" x="51" y="260" width="218" height="42"/>
+                    <color key="backgroundColor" red="0.85882352939999995" green="0.0" blue="0.054901960780000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="42" id="Ccg-t5-yxL"/>
+                        <constraint firstAttribute="width" constant="218" id="Y1y-EA-HMA"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                    <state key="normal" title="DOWNLOAD NOW" image="down">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="download:" destination="-1" eventType="touchUpInside" id="3Iw-mM-9vS"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="GfV-nr-FsW" secondAttribute="centerX" id="1Vd-8T-yPH"/>
+                <constraint firstAttribute="centerX" secondItem="ejW-gO-iRk" secondAttribute="centerX" id="4tE-Gn-6pP"/>
+                <constraint firstItem="ejW-gO-iRk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="103" id="7xO-Rq-hMS"/>
+                <constraint firstAttribute="centerX" secondItem="CPJ-Dx-jar" secondAttribute="centerX" id="AZX-p2-ko4"/>
+                <constraint firstAttribute="centerX" secondItem="NUw-kz-6Wb" secondAttribute="centerX" id="E6e-Ql-tau"/>
+                <constraint firstItem="CPJ-Dx-jar" firstAttribute="top" secondItem="ejW-gO-iRk" secondAttribute="bottom" constant="12" id="UEU-Iy-Wwn"/>
+                <constraint firstItem="NUw-kz-6Wb" firstAttribute="top" secondItem="CPJ-Dx-jar" secondAttribute="bottom" id="XRR-Lh-dPI"/>
+                <constraint firstAttribute="trailing" secondItem="ejW-gO-iRk" secondAttribute="trailing" constant="103" id="k4s-1Q-fl3"/>
+                <constraint firstItem="GfV-nr-FsW" firstAttribute="top" secondItem="NUw-kz-6Wb" secondAttribute="bottom" constant="22" id="oy3-gz-WJZ"/>
+                <constraint firstItem="ejW-gO-iRk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="169" id="w3f-nB-qVE"/>
+            </constraints>
+            <point key="canvasLocation" x="158" y="13"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="down" width="18" height="18"/>
+        <image name="nav-logo" width="82" height="23"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

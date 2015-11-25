@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="107" id="KGk-i7-Jjw" customClass="OrderTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="69.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DiS-4q-Qxi">
+                        <rect key="frame" x="15" y="15" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="DiS-4q-Qxi" secondAttribute="height" multiplier="1:1" id="WrZ-vf-Wqh"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Platinum Varifocal Vandal Dome Camera 4.1 MP" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Wl-Ky-Px8">
+                        <rect key="frame" x="60" y="15" width="191" height="23"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Model：CMIP7243W-SZ" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJu-xu-bik">
+                        <rect key="frame" x="60" y="43" width="117" height="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 89.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ab-3t-i2W">
+                        <rect key="frame" x="263" y="18" width="42" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wb6-K1-EIZ">
+                        <rect key="frame" x="290" y="40" width="14.5" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.70196078431372544" green="0.70196078431372544" blue="0.70196078431372544" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="wb6-K1-EIZ" firstAttribute="centerY" secondItem="sJu-xu-bik" secondAttribute="centerY" id="0s9-Ya-Qht"/>
+                    <constraint firstItem="9Wl-Ky-Px8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="760-cq-sSu"/>
+                    <constraint firstItem="sJu-xu-bik" firstAttribute="leading" secondItem="9Wl-Ky-Px8" secondAttribute="leading" id="8nM-Cp-WR8"/>
+                    <constraint firstItem="9Wl-Ky-Px8" firstAttribute="leading" secondItem="DiS-4q-Qxi" secondAttribute="trailing" constant="5" id="AAg-Qw-u76"/>
+                    <constraint firstItem="DiS-4q-Qxi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Jou-WI-NqO"/>
+                    <constraint firstItem="4Ab-3t-i2W" firstAttribute="trailing" secondItem="wb6-K1-EIZ" secondAttribute="trailing" id="SBc-JS-4bd"/>
+                    <constraint firstAttribute="bottom" secondItem="DiS-4q-Qxi" secondAttribute="bottom" constant="14" id="Ykl-Sz-DUp"/>
+                    <constraint firstAttribute="bottom" secondItem="sJu-xu-bik" secondAttribute="bottom" constant="14" id="e7V-We-Lej"/>
+                    <constraint firstItem="sJu-xu-bik" firstAttribute="top" secondItem="9Wl-Ky-Px8" secondAttribute="bottom" constant="5" id="fzq-Mq-TYh"/>
+                    <constraint firstItem="DiS-4q-Qxi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="hus-D4-ybX"/>
+                    <constraint firstItem="4Ab-3t-i2W" firstAttribute="centerY" secondItem="9Wl-Ky-Px8" secondAttribute="centerY" id="ipF-oO-qAI"/>
+                    <constraint firstAttribute="trailing" secondItem="4Ab-3t-i2W" secondAttribute="trailing" constant="15" id="sy9-1i-8pd"/>
+                    <constraint firstItem="4Ab-3t-i2W" firstAttribute="leading" secondItem="9Wl-Ky-Px8" secondAttribute="trailing" constant="12" id="yRQ-gN-Tsd"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="commoditCount" destination="wb6-K1-EIZ" id="jAZ-uy-GMR"/>
+                <outlet property="commodityImage" destination="DiS-4q-Qxi" id="S8P-DF-NG2"/>
+                <outlet property="commodityModel" destination="sJu-xu-bik" id="2Cj-IM-lv4"/>
+                <outlet property="commodityName" destination="9Wl-Ky-Px8" id="KWh-gB-w4n"/>
+                <outlet property="commodityPrice" destination="4Ab-3t-i2W" id="1Nu-Y9-Aqh"/>
+            </connections>
+            <point key="canvasLocation" x="394" y="300"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -1,0 +1,152 @@
+//
+//  VideoView.m
+//  TLS
+//
+//  Created by 屠淋 on 15/9/11.
+//  Copyright (c) 2015年 tulin. All rights reserved.
+//
+
+#import "VideoView.h"
+
+#import "PlayVideoViewController.h"
+
+
+@interface VideoView()<UICollectionViewDataSource,UICollectionViewDelegate>
+{
+    NSString *cellIdentifier;
+
+}
+
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
+@property (strong, nonatomic) BaseClass *homeInfo;
+@property (strong, nonatomic) NSArray *dataAry;
+
+@property (nonatomic, strong) NSMutableDictionary *dicBtn;
+@end
+
+@implementation VideoView
+
+- (NSMutableDictionary *)dicBtn{
+    
+    if (!_dicBtn) {
+        _dicBtn = [NSMutableDictionary dictionary];
+    }
+    return _dicBtn;
+}
+
+- (void)awakeFromNib{
+    [super awakeFromNib];
+    
+    [self loadData];
+    cellIdentifier = @"cell";
+    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:cellIdentifier];
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
+}
+
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    self.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 153);
+    self.collectionView.frame = CGRectMake(0, 0, self.width, self.height);
+    
+}
+
+- (void)loadData{
+    
+    _homeInfo = [HomeShareInfo sharedHomeInfoModel].HomeClass;
+    _dataAry = _homeInfo.video;
+}
+
+
+#pragma mark - UICollectionViewDelegate,UICollectionViewDataSource
+
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
+    return _dataAry.count;
+    
+}
+
+- (UICollectionViewCell* )collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary *dic = [_dataAry[indexPath.row] dictionaryRepresentation];
+    NSLog(@"%@",dic);
+  
+    NSString *urlStr;
+    NSString *urlStrfirst = [dic objectForKey:@"url"];
+    NSArray *imageArray = [urlStrfirst componentsSeparatedByString:@"?"];
+    for (NSString *urlString in imageArray) {
+        if ([urlString hasPrefix:@"v"]) {
+            urlStr = [urlString substringWithRange:NSMakeRange(2, 11)];
+            NSLog(@"%@",urlStr);
+        }
+    }
+    UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    UIImageView* imageV = [[UIImageView alloc]initWithFrame:CGRectMake(5, 0, cell.width - 10, cell.height / 5 * 3)];
+    imageV.image = [UIImage imageWithName:@"nav-logo"];
+    UIImageView *playImage = [[UIImageView alloc]init];
+    playImage.size = CGSizeMake(40, 20);
+    playImage.center = imageV.center;
+    playImage.image = [UIImage imageNamed:@"play"];
+   
+    
+    dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(concurrentQueue, ^{
+        dispatch_sync(concurrentQueue, ^{
+         
+            
+            NSString *fileURL = [NSString stringWithFormat:@"http://i.ytimg.com/vi/%@/mqdefault.jpg",urlStr];
+            NSURL *url = [NSURL URLWithString:fileURL];
+            NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+            NSError *downloadError = nil;
+            NSData *imageData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:nil error:&downloadError];
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                if (downloadError == nil && imageData != nil){
+                    imageV.image = [UIImage imageWithData:imageData]; /* We have the image. We can use it now */
+                }else if (downloadError != nil){
+                    NSLog(@"Error happened = %@", downloadError);
+                }
+                else
+                {
+                    NSLog(@"No data could get downloaded from the URL.");
+                }
+            });
+            
+        });
+    });
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(imageV.frame) , cell.width - 10, cell.height / 5 * 2)];
+    label.text = [dic objectForKey:@"type"];
+    label.textAlignment = NSTextAlignmentLeft;
+    label.font = [UIFont systemFontOfSize:14];
+    label.numberOfLines = 0;
+
+    
+    [cell.contentView addSubview:label];
+    [cell.contentView addSubview:imageV];
+    [cell.contentView addSubview:playImage];
+    return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return CGSizeMake(SCREEN_WIDTH / 2 - 20, self.height / 4);
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    
+    return UIEdgeInsetsMake(10, 15, 10, 15);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSDictionary *dic = [_dataAry[indexPath.row] dictionaryRepresentation];
+    NSString *urlStrfirst = [dic objectForKey:@"url"];
+    
+    if (self.delegate  && [self.delegate respondsToSelector:@selector(VideoViewPush:andURl:)]) {
+        [self.delegate VideoViewPush:self andURl:urlStrfirst];
+    }
+
+}
+
+
+@end

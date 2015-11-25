@@ -1,0 +1,150 @@
+//
+//  KnowledgeViewController.m
+//  TLS
+//
+//  Created by newtouch on 15/8/22.
+//  Copyright (c) 2015年 tulin. All rights reserved.
+//
+
+#import "KnowledgeViewController.h"
+#import "KnowledgeTableViewCell.h"
+#import "Know.h"
+
+@interface KnowledgeViewController ()<UITableViewDataSource,UITableViewDelegate>
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic,retain) NSMutableArray *dataArray;
+@property (nonatomic,copy) NSString * name;
+@property (nonatomic,assign) BOOL isShow;
+@property (nonatomic,strong) UIImageView *imageView;
+@end
+
+@implementation KnowledgeViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    _tableView.rowHeight = 30;
+    
+    [self loadData];
+}
+
+- (void)loadData{
+    // 全局的数据源
+    _dataArray = [[NSMutableArray alloc] init];
+    
+    // 添加数据
+    for (int i='A'; i<='H'; i++) {
+        Know *myData = [[Know alloc] init];
+        myData.array = [NSMutableArray array];
+        myData.name = [NSString stringWithFormat:@"General:%c",i];
+        for (int j=0; j<10; j++) {
+            
+            NSString *question = @"Field of View Chart";
+            NSString *date = @"May 4,2014";
+            NSDictionary *datadic = [NSDictionary dictionaryWithObjectsAndKeys:question,@"question",date,@"date", nil];
+            
+            [myData.array addObject:datadic];
+        }
+        [_dataArray addObject:myData];
+    }
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return _dataArray.count;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    Know *array = _dataArray[section];
+    
+    if ([array isShow]) {
+        NSLog(@"%ld",[[array array]count]);
+        return [[array array] count];
+    }else{
+        return 0;
+    }
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    KnowledgeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (!cell) {
+        cell = [[[NSBundle mainBundle]loadNibNamed:@"KnowledgeTableViewCell" owner:nil options:nil] lastObject];
+    }
+    Know *data = [_dataArray objectAtIndex:indexPath.section];
+    NSDictionary *dic = [[data array] objectAtIndex:indexPath.row];
+    cell.Question.text = [dic objectForKey:@"question"];
+    cell.QuestionDate.text = [dic objectForKey:@"date"];
+    cell.cellImage.image = [UIImage imageNamed:@"sj-right"];
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 53;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 40;
+}
+
+// 定义头标题的视图，添加点击事件
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    Know *data = _dataArray[section];
+    UILabel *question = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH, 40)];
+    question.text = [data.name stringByAppendingString:[NSString stringWithFormat:@"(%ld)",[data.array count]]];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+    btn.frame = question.frame;
+    btn.tag = section;
+    [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    btn.backgroundColor = [UIColor clearColor];
+    _imageView = [[UIImageView alloc]init];
+    _imageView.frame = CGRectMake(SCREEN_WIDTH - 35 , 10,  20, 20);
+    if ([data isShow]) {
+        _imageView.image = [UIImage imageNamed:@"cate-up"];
+    }else{
+        _imageView.image = [UIImage imageNamed:@"cate-down-on"];
+    }
+    
+    /*
+    if (section%2) {
+        btn.backgroundColor = [UIColor darkGrayColor];
+    }else{
+        btn.backgroundColor = [UIColor lightGrayColor];
+    }
+     */
+    [btn addSubview:_imageView];
+    [btn addSubview:question];
+    return btn;
+}
+- (void) btnClick:(UIButton *)btn
+{
+    NSLog(@"点击事件");
+    Know *data = [_dataArray objectAtIndex:btn.tag];
+    // 改变组的显示状态
+    if ([data isShow]) {
+        [data setIsShow:NO];
+    }else{
+        [data setIsShow:YES];
+    }
+    // 刷新点击的组标题，动画使用卡片
+    [_tableView reloadSections:[NSIndexSet indexSetWithIndex:btn.tag] withRowAnimation:UITableViewRowAnimationFade];
+}
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end
