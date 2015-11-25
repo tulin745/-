@@ -1,0 +1,32 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "e66b1511-424b-0645-b642-754a33d99438++3634",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "e66b1511-424b-0645-b642-754a33d99438++3634" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "e66b1511-424b-0645-b642-754a33d99438++3634" : 0,
+    "B6581ED410FF75AD46476DA55578FCE10246F7A6" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7E06E750-1EED-4D53-A48A-78CF2E0B6E4B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "e66b1511-424b-0645-b642-754a33d99438++3634" : "TLS_150907\/",
+    "B6581ED410FF75AD46476DA55578FCE10246F7A6" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "TLS",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "TLS.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/tulin745\/-.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B6581ED410FF75AD46476DA55578FCE10246F7A6"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/121.40.170.195\/svn\/LTSIOS",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "e66b1511-424b-0645-b642-754a33d99438++3634"
+    }
+  ]
+}
